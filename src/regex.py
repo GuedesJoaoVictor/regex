@@ -5,11 +5,10 @@ class Regex:
     Classe Regex
     Responsável por armazenar as expressões regulares utilizadas no sistema.
     """
-    nome_produto = re.compile(r"(?x)^(?P<letra_maiuscula>[A-Z]) *"
-                              r"(?P<primeira_palavra>[a-zA-Z0-9]*\s*) "
-                              r"(?P<segunda_palavra>[a-zA-Z0-9]+\s*) "
-                              r"(?P<terceira_palavra>[a-zA-Z0-9]+\s*)"
-                              r"(?P<n_palavras>\s*([a-zA-Z0-9])*)*")
+    nome_produto = re.compile(
+        r"^(?P<nome>([A-Z][a-zA-Z0-9]+)(\s+[a-zA-Z0-9]+){2,})$"
+    )
+
     codigo = re.compile(r"(?x)^(?P<letras>[A-Z]{6})"
                         r"(?P<numeros>[0-9]{4})$")
     preco = re.compile(

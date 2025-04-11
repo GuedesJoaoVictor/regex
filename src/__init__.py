@@ -1,6 +1,4 @@
-from src.regex import Regex
-
-print(Regex.verifica_nome_produto("Produto Teste 1"))
+from regex import Regex
 
 def get_inputs():
     nome_produto = input(str("Digite o nome para o produto:"))
@@ -11,3 +9,5 @@ def get_inputs():
     return nome_produto, codigo, preco, data
 
 nome_produto, codigo, preco, data = get_inputs()
+
+print(Regex.verifica_nome_produto(nome_produto))
