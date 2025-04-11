@@ -1,6 +1,10 @@
 import re
 
 class Regex:
+    """
+    Classe Regex
+    Responsável por armazenar as expressões regulares utilizadas no sistema.
+    """
     nome_produto = re.compile(r"(?x)^(?P<letra_maiuscula>[A-Z]) *"
                               r"(?P<primeira_palavra>[a-zA-Z0-9]*\s*) "
                               r"(?P<segunda_palavra>[a-zA-Z0-9]+\s*) "
@@ -17,24 +21,30 @@ class Regex:
         r"(?P<meses>(0[1-9])|1[0-2])/"
         r"(?P<anos>(20([0-1][0-9]|2[0-5]))|(19[5-9][0-9]))$")
 
+
+    # Metodo estatico para verificar se o nome do produto é valido
     @staticmethod
     def verifica_nome_produto(nome_produto):
         if Regex.nome_produto.search(nome_produto):
             return True
         return False
 
+    # Metodo estatico para verificar se o codigo do produto é valido
     @staticmethod
     def verifica_codigo(codigo):
         if Regex.codigo.search(codigo):
             return True
         return False
 
+    # Metodo estatico para verificar se o preco do produto é valido
     @staticmethod
     def verifica_preco(preco):
         if Regex.preco.search(preco):
             return True
         return False
 
+    # Metodo estatico para verificar se a data de validade do produto é valida
+    # Formato: dd/mm/aaaa
     @staticmethod
     def verifica_data(data):
         if Regex.datas.search(data):
