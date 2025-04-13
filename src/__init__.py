@@ -14,3 +14,4 @@ if __name__ == "__main__":
     nome_produto, codigo, preco, data = get_inputs()
     print(Verificador.verificador_nome_produto(nome_produto))
     print(Verificador.verificador_codigo(codigo))
+    print(Verificador.verificador_preco(preco))
