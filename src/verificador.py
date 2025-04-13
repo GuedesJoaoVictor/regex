@@ -54,6 +54,7 @@ class Verificador:
                 nome_produto = "A "+ nome_produto
                 print(nome_produto)
                 return Regex.verifica_nome_produto(nome_produto)
+
     @staticmethod
     def verificador_codigo(codigo: str):
         """
@@ -66,8 +67,15 @@ class Verificador:
             return True
         else:
             codigo = codigo.upper()
+            codigo = re.sub(r"\s", "", codigo) # Remove os espaços em branco
             # Converteremos a string em lista para modificar
             codigo_list = list(codigo)
+
+            # Verifica se a lista tem o tamanho desejado
+            if len(codigo_list) < 10:
+                # Se não tiver, adicionamos os ultimos numeros a lista
+                while len(codigo_list) < 10:
+                    codigo_list.append(str(randint(0, 9)))
 
             # Preenche ou corrige os primeiros caracteres
             for i in range(6):
@@ -81,7 +89,7 @@ class Verificador:
             # Completa os 4 ultimos digitos se for preciso
             for i in range(6, 10):
                 # Se i >= ao tamanho da lista || codigo na posição i for uma letra
-                if i >= len(codigo_list) or codigo_list[i].isalnum():
+                if i >= len(codigo_list) or codigo_list[i].isalpha():
                     # Então trocamos a letra por um numero
                     codigo_list[i] = str(randint(0, 9))
 
@@ -89,3 +97,25 @@ class Verificador:
             novo_codigo = "".join(codigo_list[:10])
             print("Codigo corrigido: " + novo_codigo)
             return Regex.verifica_codigo(novo_codigo)
+
+    @staticmethod
+    def verificador_preco(preco):
+        """
+        Verifica se o preço é válido.
+        :param preco: string a ser verificada no formato: 99.00 | 99,00 | 1,000.00 | 100.999,99
+        :return: True se a string for valida, False caso contrario
+        """
+        if Regex.verifica_preco(preco):
+            print("Preço válido")
+            return True
+        else:
+            # O que eu estava fazendo antes para remover os espaços
+            # preco_list = list(preco)
+            # for i in range(1, len(preco_list)):
+            #     if preco[i] == " ":
+            #         preco_list.remove(preco[i])
+            # novo_preco = "".join(preco_list)
+            preco = re.sub(r"\s", "", preco) # Remove os espaços em branco
+            preco = re.sub(r"[a-zA-Z]", "", preco) # Remove tudo o que nao for numero
+            print("Novo preco: " + preco)
+            return Regex.verifica_preco(preco)
