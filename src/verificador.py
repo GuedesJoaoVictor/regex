@@ -136,17 +136,27 @@ class Verificador:
 
 
 
-    """"
     @staticmethod
     def verificador_data(data: str):
-        
+        """
         Verifica se a data é valida.
         :param data: String a ser validada
         :return: True se for valida, False caso contrario
+        """
         if Regex.verifica_data(data):
             print("Data valida")
             return True
         else:
-            # Todo
-            a = ""
-    """
+            # Removendo espaços e letras, caso exista.
+            data = re.sub(r"\s", "", data)
+            data = re.sub(r"[a-zA-Z]", "", data)
+            # Verificar ano de tras pra frente (aaaa/mm/dd)
+            data_invertida = re.compile(
+                r"(?xm)^(?P<anos>(20([0-1][0-9]|2[0-5]))|(19[5-9][0-9]))/"
+                r"(?P<meses>(0[1-9])|1[0-2])/"
+                r"(?P<dias>(0[1-9])|([12][0-9])|(3[01]))$")
+            if data_invertida.search(data):
+                data = re.sub(data_invertida, r"\g<dia>-\g<mes>-\g<ano>", data)
+                print(data)
+
+            # Verificar ano bissexto
