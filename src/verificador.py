@@ -1,37 +1,10 @@
 from random import randint
 
 from regex import Regex
+from letras import Alfabeto
 import re
 
 class Verificador:
-    letras = {
-        0: "A",
-        1: "B",
-        2: "C",
-        3: "D",
-        4: "E",
-        5: "F",
-        6: "G",
-        7: "H",
-        8: "I",
-        9: "J",
-        10: "K",
-        11: "L",
-        12: "M",
-        13: "N",
-        14: "O",
-        15: "P",
-        16: "Q",
-        17: "R",
-        18: "S",
-        19: "T",
-        20: "U",
-        21: "V",
-        22: "W",
-        23: "X",
-        24: "Y",
-        25: "Z",
-    }
 
     @staticmethod
     def verificador_nome_produto(nome_produto: str):
@@ -81,7 +54,7 @@ class Verificador:
             for i in range(6):
                 if i>= len(codigo_list) or not codigo_list[i].isalpha():
                     # Gera uma letra alaeatoria caso o caractere nao seja valido
-                    codigo_list.insert(i, Verificador.letras[randint(0, 25)])
+                    codigo_list.insert(i, Alfabeto.letras[randint(0, 25)])
                     # Remove o proximo elemento pois como acabamos de adicionar uma letra na posição i
                     # o proximo elemento da lista é um numero.
                     codigo_list.remove(codigo_list[i + 1])
@@ -99,7 +72,7 @@ class Verificador:
             return Regex.verifica_codigo(novo_codigo)
 
     @staticmethod
-    def verificador_preco(preco):
+    def verificador_preco(preco: str):
         """
         Verifica se o preço é válido.
         :param preco: string a ser verificada no formato: 99.00 | 99,00 | 1,000.00 | 100.999,99
@@ -119,3 +92,18 @@ class Verificador:
             preco = re.sub(r"[a-zA-Z]", "", preco) # Remove tudo o que nao for numero
             print("Novo preco: " + preco)
             return Regex.verifica_preco(preco)
+
+    """"
+    @staticmethod
+    def verificador_data(data: str):
+        
+        Verifica se a data é valida.
+        :param data: String a ser validada
+        :return: True se for valida, False caso contrario
+        if Regex.verifica_data(data):
+            print("Data valida")
+            return True
+        else:
+            # Todo
+            a = ""
+    """
