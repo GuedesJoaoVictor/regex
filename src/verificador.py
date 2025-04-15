@@ -90,8 +90,24 @@ class Verificador:
             # novo_preco = "".join(preco_list)
             preco = re.sub(r"\s", "", preco) # Remove os espaços em branco
             preco = re.sub(r"[a-zA-Z]", "", preco) # Remove tudo o que nao for numero
-            print("Novo preco: " + preco)
-            return Regex.verifica_preco(preco)
+            preco_list = list(preco)
+            if not preco_list.__contains__(",") or not preco_list.__contains__("."):
+                return Regex.verifica_preco(preco)
+            else:
+                op = 0
+                novo_preco = preco + ",00"
+                preco_list.insert(len(preco_list) - 2, ",")
+                while op != 1 & op != 2:
+                    op = input(f"Você deseja que o novo preço seja: 1 - {novo_preco} | 2 - {preco_list}:")
+
+                if op == 1:
+                    preco = novo_preco
+                else:
+                    preco = "".join(preco_list)
+
+                return Regex.verifica_preco(preco)
+
+
 
     """"
     @staticmethod
