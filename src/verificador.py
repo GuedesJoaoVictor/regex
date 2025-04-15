@@ -95,7 +95,17 @@ class Verificador:
             if preco_list.__contains__(",") or preco_list.__contains__("."):
                 # Verificamos de novo se o preço está ok com a regex. Se NÃO estiver, executamos o codigo
                 if not Regex.verifica_preco(preco):
-
+                    # Pega a regex caso ela termina com nenhuma casa decimal
+                    decimal_existe0 = re.search(r"[,.]$", preco)
+                    # Pega a regex caso ela termine com apenas um numero de casa decimal
+                    decimal_existe1 = re.search(r"[,.][0-9]$", preco)
+                    if decimal_existe0:
+                        preco_decimal_corrigido = preco + ",00"
+                    elif decimal_existe1:
+                        preco_decimal_corrigido = preco + "0"
+                    else:
+                        preco_decimal_corrigido = re.sub(r"[.,]", "", preco)
+                        preco_decimal_corrigido = preco_decimal_corrigido + ",00"
 
                     novo_preco = re.sub(r"[.,]", "", preco)
                     novo_preco = list(novo_preco)
@@ -104,7 +114,7 @@ class Verificador:
 
                     op = 0
                     while op != "1" and op != "2":
-                        op = input(f"Deseja que o seu preço seja: {novo_preco}")
+                        op = input(f"Deseja que o seu preço seja: 1 - {novo_preco} | 2 - {preco_decimal_corrigido}:")
 
                     return Regex.verifica_preco(novo_preco)
                 # Se estiver, retornamos true.
