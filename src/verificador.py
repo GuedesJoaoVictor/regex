@@ -91,8 +91,24 @@ class Verificador:
             preco = re.sub(r"\s", "", preco) # Remove os espaços em branco
             preco = re.sub(r"[a-zA-Z]", "", preco) # Remove tudo o que nao for numero
             preco_list = list(preco)
+            # Veirifica se o preco tem . ou ,
             if preco_list.__contains__(",") or preco_list.__contains__("."):
-                return Regex.verifica_preco(preco)
+                # Verificamos de novo se o preço está ok com a regex. Se NÃO estiver, executamos o codigo
+                if not Regex.verifica_preco(preco):
+
+
+                    novo_preco = re.sub(r"[.,]", "", preco)
+                    novo_preco = list(novo_preco)
+                    novo_preco.insert(len(novo_preco) - 2, ",")
+                    novo_preco = "".join(novo_preco)
+
+                    op = 0
+                    while op != "1" and op != "2":
+                        op = input(f"Deseja que o seu preço seja: {novo_preco}")
+
+                    return Regex.verifica_preco(novo_preco)
+                # Se estiver, retornamos true.
+                return True
             else:
                 op = 0
                 novo_preco = preco + ",00"
