@@ -155,8 +155,34 @@ class Verificador:
                 r"(?xm)^(?P<anos>(20([0-1][0-9]|2[0-5]))|(19[5-9][0-9]))/"
                 r"(?P<meses>(0[1-9])|1[0-2])/"
                 r"(?P<dias>(0[1-9])|([12][0-9])|(3[01]))$")
-            if data_invertida.search(data):
-                data = re.sub(data_invertida, r"\g<dia>-\g<mes>-\g<ano>", data)
-                print(data)
 
-            # Verificar ano bissexto
+            match_dma = Regex.datas.match(data)
+            match_amd = data_invertida.match(data)
+
+            if not (match_dma or match_amd):
+                return False
+
+            if match_dma:
+                dia = int(match_dma.group('dia'))
+                mes = int(match_dma.group('mes'))
+                ano = int(match_dma.group('ano'))
+            else:
+                dia = int(match_amd.group('dia'))
+                mes = int(match_amd.group('mes'))
+                ano = int(match_amd.group('ano'))
+
+                # Verificar meses com 30 dias
+            if mes in [4, 6, 9, 11] and dia > 30:
+                return False
+
+                # Verificar fevereiro e anos bissextos
+            if mes == 2:
+                # Ano bissexto
+                if (ano % 400 == 0) or (ano % 100 != 0 and ano % 4 == 0):
+                    if dia > 29:
+                        return False
+                else:
+                    if dia > 28:
+                        return False
+
+            return True
