@@ -12,13 +12,13 @@ class Regex:
     codigo = re.compile(r"(?x)^(?P<letras>[A-Z]{6})"
                         r"(?P<numeros>[0-9]{4})$")
     preco = re.compile(
-        r"(?xm)^(?P<preco_virgula>([0-9]{1,3}\.)([0-9]{3}\.?)+,[0-9]{2})$|"
-        r"(?P<preco_ponto>([0-9]{1,3},)([0-9]{3},?)+\.[0-9]{2})$|"
-        r"(?P<preco>[0-9]+([.,])[0-9]{2})$")
+        r"(?xm)^(?P<preco_virgula>([0-9]{1,3}\.)([0-9]{3}\.?)+,[0-9]{1,2})$|"
+        r"(?P<preco_ponto>([0-9]{1,3},)([0-9]{3},?)+\.[0-9]{1,2})$|"
+        r"(?P<preco>[0-9]+([.,])[0-9]{1,2})$")
     datas = re.compile(
         r"(?xm)^(?P<dias>(0[1-9])|([12][0-9])|(3[01]))/"
         r"(?P<meses>(0[1-9])|1[0-2])/"
-        r"(?P<anos>(20([0-1][0-9]|2[0-5]))|(19[5-9][0-9]))$")
+        r"(?P<anos>(20([0-1][0-9]|2[0-9]))|(19[5-9][0-9]))$")
 
     # Metodo estatico para verificar se o nome do produto é valido
     # Formato Camiseta confortavel G
